@@ -87,6 +87,7 @@ class ControlSubscriber(Node):
 
         # Calcular la nueva velocidad usando la última aceleración recibida
         speed = self.speed + self.acc * time_diff
+        self.get_logger().info(f"{speed:.3f}m/s = {self.speed:.3f}m/s + {self.acc:.3f}m/s2 * {time_diff:.3f}s")
 
         # Limitar la velocidad mínima a 0 si la aceleración es negativa
         if speed < 0:
