@@ -111,15 +111,17 @@ def main(args=None):
 
     minimal_subscriber = ControlSubscriber()
 
-    def signal_handler(sig, frame):
+    try:
+        minimal_subscriber.get_logger().info("Node spinning, press Ctrl+C to stop")
+        while rclpy.ok():
+            rclpy.spin_once(minimal_subscriber, timeout_sec=0.1)
+    except KeyboardInterrupt:
         minimal_subscriber.get_logger().info("Ctrl+C pressed. Shutting down...")
+    finally:
         minimal_subscriber.stop_car()
+        minimal_subscriber.get_logger().info("Car stopped")
         minimal_subscriber.destroy_node()
         rclpy.shutdown()
-
-    signal.signal(signal.SIGINT, signal_handler)
-
-    rclpy.spin(minimal_subscriber)
 
 if __name__ == '__main__':
     main()
