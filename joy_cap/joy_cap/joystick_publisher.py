@@ -32,9 +32,6 @@ class JoystickPublisher(Node):
         steering = self.joystick.get_value(param="RK2_LEFT_RIGHT")
         if steering is None:
             steering = 0.0
-
-        """stop = int(self.joystick.get_value(param="X"))
-        self.get_logger().info(f"X: {stop}")"""
         
         # Normalizar las velocidades en el rango [-1.0, 1.0]
         acc = max(-1.0, min(1.0, acc))
@@ -46,8 +43,9 @@ class JoystickPublisher(Node):
         msg.wheelAngle = float(steering)
 
         # Publicar el mensaje
-        self.publisher_.publish(msg)
-        self.get_logger().info(f'Publishing Ackermann: Acceleration={msg.acceleration}, Steering={msg.wheelAngle}')
+        if msg.acceleration != 0.0 or msg.wheelAngle != 0.0: # algún presionado
+            self.publisher_.publish(msg)
+            self.get_logger().info(f'Publishing Ackermann: Acceleration={msg.acceleration}, Steering={msg.wheelAngle}')
 
 def main(args=None):
     rclpy.init(args=args)

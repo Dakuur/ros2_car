@@ -40,6 +40,7 @@ class ControlSubscriber(Node):
         self.acc = 0  # Última aceleración recibida
 
         self.previous_time = time()
+        self.emergency = False
 
         # Crear un timer para actualizar y enviar la velocidad constantemente
         hz = 30.0
@@ -52,7 +53,7 @@ class ControlSubscriber(Node):
         self.steering = msg.wheelAngle
         self.steering *= 1 # escalado
 
-        self.get_logger().info(f"Received command: Acceleration={self.acc:.3f}, Steering={self.steering:.3f}")
+        self.get_logger().info(f"Received command: Acceleration={msg.acceleration:.3f}, Steering={self.steering:.3f}")
 
     def egomaster_callback(self, msg):
         # Guardar el valor recibido de adre_egomaster en self.speed
@@ -77,7 +78,7 @@ class ControlSubscriber(Node):
 
         limited_speed = min(1.8, speed)  # Limitar a la velocidad máxima de 1.8 m/s
 
-        if self.acc == -1.0: # Emergency stop
+        if float(self.acc) == float(-3.6) and self.emergency == False: # Emergency stop
             self.robot.set_car_motion(0, 0, 0)
             print("Emergencý stop, stopping for 5 seconds")
             sleep(5)
