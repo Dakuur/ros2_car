@@ -18,8 +18,8 @@ class JoystickPublisher(Node):
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
         self.joystick = JoystickReader(js_id=1)
-        # JS_ID = 0: MANDO ROSMASTER
-        # JS_ID = 1: MANDO STADIA
+        # JS_ID = 0: ROSMASTER DEFAULT CONTROLLER
+        # JS_ID = 1: STADIA CONTROLLER
 
     def timer_callback(self):
         # Actualizar el estado del joystick
