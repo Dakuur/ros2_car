@@ -49,8 +49,6 @@ class ControlSubscriber(Node):
         # Actualizar la aceleración y el ángulo de dirección recibidos
         self.acc = msg.acceleration * 3.6  # Convertir a m/s^2
         self.acc *= 1 # escalado
-        if self.acc < 0:
-            self.acc = -(self.acc * 2)**2
         self.steering = msg.wheelAngle
         self.steering *= 1 # escalado
 
@@ -78,6 +76,11 @@ class ControlSubscriber(Node):
             speed = 0.0
 
         limited_speed = min(1.8, speed)  # Limitar a la velocidad máxima de 1.8 m/s
+
+        if self.acc == -1.0: # Emergency stop
+            self.robot.set_car_motion(0, 0, 0)
+            print("Emergencý stop, stopping for 5 seconds")
+            sleep(5)
 
         # Enviar los comandos de velocidad al robot
         self.robot.set_car_motion(limited_speed, self.steering * 0.045, 0)
