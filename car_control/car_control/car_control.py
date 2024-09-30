@@ -80,8 +80,8 @@ class ControlSubscriber(Node):
 
         if float(self.acc) == float(-3.6) and self.emergency == False: # Emergency stop
             self.robot.set_car_motion(0, 0, 0)
-            print("Emergencý stop, stopping for 5 seconds")
-            sleep(5)
+            print("Emergencý stop, stopping for a few seconds")
+            sleep(2)
 
         # Enviar los comandos de velocidad al robot
         self.robot.set_car_motion(limited_speed, self.steering * 0.045, 0)
