@@ -21,8 +21,6 @@ class JoystickPublisher(Node):
         # JS_ID = 0: ROSMASTER DEFAULT CONTROLLER
         # JS_ID = 1: STADIA CONTROLLER
 
-        self.afk = True
-
     def timer_callback(self):
         # Actualizar el estado del joystick
         self.joystick.update()
@@ -45,9 +43,8 @@ class JoystickPublisher(Node):
         msg.wheelAngle = float(steering)
 
         # Publicar el mensaje
-        if True: # algún presionado
-            self.publisher_.publish(msg)
-            self.get_logger().info(f'Publishing Ackermann: Acceleration={msg.acceleration}, Steering={msg.wheelAngle}')
+        self.publisher_.publish(msg)
+        self.get_logger().info(f'Publishing Ackermann: Acceleration={msg.acceleration}, Steering={msg.wheelAngle}')
 
 def main(args=None):
     rclpy.init(args=args)
