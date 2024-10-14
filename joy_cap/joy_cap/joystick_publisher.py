@@ -12,12 +12,15 @@ class JoystickPublisher(Node):
         self.publisher_ = self.create_publisher(AutoboxControl, 'adre_autoboxControl', 1)
 
         self.declare_parameter('hz', 60.0)
+        self.declare_parameter('js_id', 1)  # Declarar el parámetro js_id con valor predeterminado 1
+
         hz = self.get_parameter('hz').get_parameter_value().double_value
+        js_id = self.get_parameter('js_id').get_parameter_value().integer_value  # Obtener el valor del parámetro js_id
 
         timer_period = 1.0 / hz  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
-        self.joystick = JoystickReader(js_id=1)
+        self.joystick = JoystickReader(js_id=js_id)  # Usar el valor del parámetro js_id para inicializar JoystickReader
         # JS_ID = 0: ROSMASTER DEFAULT CONTROLLER
         # JS_ID = 1: STADIA CONTROLLER
 

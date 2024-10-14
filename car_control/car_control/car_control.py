@@ -31,11 +31,15 @@ class ControlSubscriber(Node):
         # Inicializar el robot
         self.robot = Rosmaster(debug=False)
         #self.robot.create_receive_threading()
-        self.robot.set_pwm_servo(servo_id=1, angle=45)
-        sleep(0.5)
-        self.robot.set_pwm_servo(servo_id=1, angle=90)
+        self.robot.set_colorful_effect(0, 5) 
 
-        self.speed = 0  # Velocidad actual en m/s
+        """self.robot.set_pwm_servo(servo_id=1, angle=45)
+        sleep(0.5)
+        self.robot.set_pwm_servo(servo_id=1, angle=90)"""
+
+        self.speed = 0  # Velocidad actual real en m/s
+        self.yaw = 0 # Yaw actual real en radianes
+
         self.steering = 0  # Ángulo de dirección
         self.acc = 0  # Última aceleración recibida
 
@@ -58,10 +62,22 @@ class ControlSubscriber(Node):
     def egomaster_callback(self, msg):
         # Guardar el valor recibido de adre_egomaster en self.speed
         self.speed = msg.velX.measurement
+        self.yaw = msg.yaw.measurement
 
     def steering_to_degrees(self, value):
         degrees = 45 + (value + 1) * (135 - 45) / 2
         return degrees
+    
+    def correct_yaw(self, threshold=0.01):
+        # Corregir la dirección si el steering es 0
+        if self.steering == 0.0:
+            if self.yaw > threshold:  # Ajustar el umbral según sea necesario
+                self.steering = -0.1  # Ajustar el valor según sea necesario
+            elif self.yaw < -threshold:
+                self.steering = 0.1  # Ajustar el valor según sea necesario
+            else:
+                self.steering = 0.0
+            self.robot.set_pwm_servo(servo_id=1, angle=90)  # ángulo recto ruedas si joystick neutro
 
     def update_speed(self):
         # Calcular el tiempo transcurrido desde la última actualización
@@ -78,10 +94,14 @@ class ControlSubscriber(Node):
 
         limited_speed = min(1.8, speed)  # Limitar a la velocidad máxima de 1.8 m/s
 
-        if float(self.acc) == float(-3.6) and self.emergency == False: # Emergency stop
+        if float(self.acc) == float(-3.6) and not self.emergency:  # Emergency stop
             self.robot.set_car_motion(0, 0, 0)
-            print("Emergencý stop, stopping for a few seconds")
-            sleep(2)
+            self.robot.set_colorful_effect(effect=3, speed=0, parm=255)  # Activar efecto de color
+            self.emergency = True
+            print("Emergency stop, stopping for a few seconds")
+            self.create_timer(2.0, self.end_emergency)  # Llamar a end_emergency después de 2 segundos
+
+        #self.correct_yaw()
 
         # Enviar los comandos de velocidad al robot
         self.robot.set_car_motion(limited_speed, self.steering * 0.045, 0)
@@ -90,14 +110,15 @@ class ControlSubscriber(Node):
         angle = self.steering_to_degrees(self.steering)
         self.robot.set_pwm_servo(servo_id=1, angle=angle)"""
 
-        if self.steering == 0.0: # angulo recto ruedas si joystick neutro
-            self.robot.set_pwm_servo(servo_id=1, angle=90)
-
         self.get_logger().info(f"Desired speed: {speed:.3f} m/s, limited to {limited_speed:.3f} m/s (time diff: {time_diff:.3f} seconds)")
+
+    def end_emergency(self):
+        self.robot.set_colorful_effect(0, 5)  # Desactivar efecto de color
+        self.emergency = False
 
     def stop_car(self):
         self.get_logger().info("Stopping car...")
-        self.robot.set_car_run(state=1, speed=0, adjust=True) # Detener el coche
+        self.robot.set_car_run(state=1, speed=0, adjust=True)  # Detener el coche
         self.robot.set_pwm_servo(servo_id=1, angle=90)
 
 def main(args=None):
