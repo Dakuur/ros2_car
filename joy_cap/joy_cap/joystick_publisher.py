@@ -9,7 +9,7 @@ class JoystickPublisher(Node):
 
     def __init__(self):
         super().__init__('joystick_publisher')
-        self.publisher_ = self.create_publisher(AutoboxControl, 'adre_autoboxControl', 1)
+        self.publisher_ = self.create_publisher(AutoboxControl, 'control', 1)
 
         self.declare_parameter('hz', 60.0)
         self.declare_parameter('js_id', 1)  # Declarar el parámetro js_id con valor predeterminado 1

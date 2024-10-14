@@ -8,10 +8,8 @@ class CameraPublisher(Node):
     def __init__(self):
         super().__init__('camera_publisher')
         
-        # Crear tres publicadores para tres tópicos distintos
-        self.publisher_1 = self.create_publisher(CompressedImage, 'adre_sekonix120degCompressed_resized', 1)
-        self.publisher_2 = self.create_publisher(CompressedImage, 'adre_sekonix60degCompressed_resized', 1)
-        self.publisher_3 = self.create_publisher(CompressedImage, 'adre_topviewFrontCompressed_resized', 1)
+        # Crear publisher
+        self.publisher = self.create_publisher(CompressedImage, 'cam', 1)
         
         self.declare_parameter('fps', 30.0)  # Declaramos el parámetro 'fps' con un valor por defecto de 30.0
         fps = self.get_parameter('fps').get_parameter_value().double_value
@@ -47,9 +45,7 @@ class CameraPublisher(Node):
             msg.data = self.bridge.cv2_to_compressed_imgmsg(frame, dst_format="jpeg").data
 
             # Publicar en los tres tópicos
-            self.publisher_1.publish(msg)
-            self.publisher_2.publish(msg)
-            self.publisher_3.publish(msg)
+            self.publisher.publish(msg)
             
             self.get_logger().info(f'Compressed image sent on 3 topics')
         else:

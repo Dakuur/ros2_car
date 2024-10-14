@@ -15,7 +15,7 @@ class ControlSubscriber(Node):
         # OUTPUT (JOYSTICK OR AI)
         self.subscription = self.create_subscription(
             AutoboxControl,
-            'adre_autoboxControl',
+            'control',
             self.listener_callback,
             1)
         self.subscription  # prevent unused variable warning
@@ -23,7 +23,7 @@ class ControlSubscriber(Node):
         # ODOMETRY
         self.egomaster_subscription = self.create_subscription(
             Ego,
-            'adre_egomaster',
+            'odo',
             self.egomaster_callback,
             1)
         self.egomaster_subscription  # prevent unused variable warning
@@ -99,7 +99,8 @@ class ControlSubscriber(Node):
             self.robot.set_colorful_effect(effect=3, speed=0, parm=255)  # Activar efecto de color
             self.emergency = True
             print("Emergency stop, stopping for a few seconds")
-            self.create_timer(2.0, self.end_emergency)  # Llamar a end_emergency después de 2 segundos
+            sleep(3)
+            self.end_emergency()  # Llamar a end_emergency después de la pausa
 
         #self.correct_yaw()
 
@@ -110,7 +111,7 @@ class ControlSubscriber(Node):
         angle = self.steering_to_degrees(self.steering)
         self.robot.set_pwm_servo(servo_id=1, angle=angle)"""
 
-        self.get_logger().info(f"Desired speed: {speed:.3f} m/s, limited to {limited_speed:.3f} m/s (time diff: {time_diff:.3f} seconds)")
+        self.get_logger().info(f"Car speed set to {limited_speed:.3f} m/s")
 
     def end_emergency(self):
         self.robot.set_colorful_effect(0, 5)  # Desactivar efecto de color
@@ -135,7 +136,6 @@ def main(args=None):
     signal.signal(signal.SIGINT, signal_handler)
 
     rclpy.spin(minimal_subscriber)
-
 
 if __name__ == '__main__':
     main()

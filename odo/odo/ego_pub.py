@@ -9,8 +9,8 @@ import math
 class SpeedPublisher(Node):
 
     def __init__(self):
-        super().__init__('speed_publisher')
-        self.publisher_ = self.create_publisher(Ego, 'adre_egomaster', 1)
+        super().__init__('odo_publisher')
+        self.publisher_ = self.create_publisher(Ego, 'odo', 1)
 
         self.declare_parameter('hz', 30.0)
         hz = self.get_parameter('hz').get_parameter_value().double_value
@@ -64,7 +64,7 @@ class SpeedPublisher(Node):
         msg.latitude = default_measurement #[gcs-koords]
 
         self.max_speed = max(speed, self.max_speed)
-        self.max_yaw = max(angle, self.max_yaw)
+        self.max_yaw = max(angle, abs(self.max_yaw))
         self.publisher_.publish(msg)
         self.get_logger().info(f'Publishing Ego: speed={msg.velX.measurement} m/s, yaw={msg.yaw.measurement} rad')
         self.get_logger().info(f"Max speed: {self.max_speed} m/s")
