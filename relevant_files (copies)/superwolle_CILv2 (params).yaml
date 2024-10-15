@@ -1,0 +1,870 @@
+#                                                  PARAMETER FILE
+#                                                    (TEMPLATE)
+
+########################################################################################################################
+##################################################### Sensors ##########################################################
+########################################################################################################################
+sensors:
+  cameras:
+    sekonix_60:
+      version: "chris_mei"
+      msg: "classic"
+      format: "bgr"
+      translation: [0.3964, 0.08542031178, 1.289154301]
+      rotation: [0.9990120218, 0.01111609216, -0.04302804646, -0.009866526871, 0.9995265, 0.02914493772, 0.04333165049, -0.02869160578, 0.9986486669]
+      focal: [717.6350967, 721.2597096]
+      xi: 0.3004836019
+      image_size: [576, 362]
+      center_point: [292.68635505, 197.19399756]
+      mount: False
+    sekonix_120:
+      version: "chris_mei"
+      msg: "classic"
+      format: "bgr"
+      translation: [0.404166512, -0.1007104112, 1.295296265]
+      rotation: [0.9854193242, 0.001502900195, -0.1701367005, -0.003940759834, 0.999894341, -0.01399203985, 0.1700976954, 0.01445849432, 0.9853211284]
+      focal: [953.8161579, 963.1815915]
+      xi: 2.280351129
+      image_size: [576, 362]
+      center_point: [290.57158821, 195.61853547]
+      mount: True
+    sekonix_90:
+      version: "carla"
+      msg: "classic"
+      format: "rgb"
+      translation: [-0.175, 0., 2.925]
+      rotation: [0, 90, 90]
+      focal: [960.0000000000001, 960.0000000000001]
+      xi: 2.280351129
+      image_size: [1920, 1208]
+      center_point: [960, 604]
+      mount: False
+    conti_front:
+      version: "chris_mei"
+      msg: "compressedimage"
+      format: "bgr"
+      translation: [2.139300612, -0.02052683361, 0.5950380282]
+      rotation: [0.9987731204, 0.01468705775, 0.04729211732, -0.01370340776, 0.9996843614, -0.02105692604, -0.04758645439, 0.02038302856, 0.9986591318]
+      focal: [621.2837204, 621.9477953]
+      xi: 0.8698202137
+      k: [-0.1015151723, -0.000154679074]
+      p: [-0.000154679074, 0.000279899484]
+      image_size: [1200, 800]
+      center_point: [638.3172711, 405.5771202]
+      mount: False      
+    rgb_bev:
+      version: "carla"
+      msg: "classic"
+      format: "rgb"
+      translation: [3.0, 0.0, 15.0]
+      rotation: [0, 90, 0]
+      focal: 362.132
+      image_size: [300, 300]
+      mount: False
+  
+  gnss:
+    gnss: 
+      translation: [1.0, 0.0, 2.0]
+      rotation: [0.0, 0.0, 0.0]
+      noise_stddev: [0.0, 0.0, 0.0]
+      noise_bias: [0.0, 0.0, 0.0]
+      mount: True
+
+  imu:
+    imu:
+      translation: [2.0, 0.0, 2.0]
+      rotation: [0.0, 0.0, 0.0]
+      noise_accel_stddev: [0.0, 0.0, 0.0]
+      noise_gyro_stddev: [0.0, 0.0, 0.0]
+      noise_gyro_bias: [0.0, 0.0, 0.0]
+      mount: True
+    
+  odometry:
+    odometry:
+      mount: True
+
+  velodyne:
+    rotation: [0.999650539, 0.02560899533, 0.0065558487, -0.02570758255, 0.9995505167, 0.01542351603, -0.006157921205, -0.01558666114, 0.9998595581]
+    translation: [0.225287965, 0.3603184639, 1.670239187]
+    msg: "classic_pointcloud"
+    mount: True
+
+  radar:
+    rotation: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
+    translation: [-1.305761756, 0.0, 0.0]
+    msg: "classic_pointcloud"
+    mount: True
+
+  depth:
+    sekonix_60:
+      version: "carla"
+      msg: "classic"
+      format: "rgb"
+      translation: [0.36, 0.08542031178, 1.289154301]
+      rotation: [0.9990120218, 0.01111609216, -0.04302804646, -0.009866526871, 0.9995265, 0.02914493772, 0.04333165049, -0.02869160578, 0.9986486669]
+      # focal: [1196.0584945, 1202.099516]
+      # center_point: [487.81059175, 328.6566626]
+      focal: [1662.7687752661222, 1662.7687752661222]
+      center_point: [960, 604]
+      xi: 0.3004836019
+      image_size: [1920, 1208]
+      mount: False
+    sekonix_120:
+      version: "carla"
+      msg: "classic"
+      format: "rgb"
+      translation: [0.36, -0.1007104112, 1.295296265]
+      rotation: [0.9854193242, 0.001502900195, -0.1701367005, -0.003940759834, 0.999894341, -0.01399203985, 0.1700976954, 0.01445849432, 0.9853211284]
+      focal: [554.2562584220409, 554.2562584220409]
+      xi: 2.280351129
+      image_size: [1920, 1208]
+      center_point: [960, 604]
+      mount: False
+    sekonix_90:
+      version: "carla"
+      msg: "classic"
+      format: "rgb"
+      translation: [-0.2, 0., 2.75]
+      rotation: [0, 90, 0]
+      focal: [960.0000000000001, 960.0000000000001]
+      xi: 2.280351129
+      image_size: [1920, 1208]
+      center_point: [960, 604]
+      mount: False
+    rgb_bev:
+      version: "carla"
+      msg: "classic"
+      format: "rgb"
+      translation: [3.0, 0.0, 15.0]
+      rotation: [0, 90, 0]
+      focal: 362.132
+      image_size: [300, 300]
+      mount: False
+
+  segmentation:
+    sekonix_60:
+      version: "carla"
+      msg: "classic"
+      format: "rgb"
+      translation: [0.36, 0.08542031178, 1.289154301]
+      rotation: [0.9990120218, 0.01111609216, -0.04302804646, -0.009866526871, 0.9995265, 0.02914493772, 0.04333165049, -0.02869160578, 0.9986486669]
+      # focal: [1196.0584945, 1202.099516]
+      # center_point: [487.81059175, 328.6566626]
+      focal: [1662.7687752661222, 1662.7687752661222]
+      center_point: [960, 604]
+      xi: 0.3004836019
+      image_size: [1920, 1208]
+      mount: False
+    sekonix_120:
+      version: "carla"
+      msg: "classic"
+      format: "rgb"
+      translation: [0.36, -0.1007104112, 1.295296265]
+      rotation: [0.9854193242, 0.001502900195, -0.1701367005, -0.003940759834, 0.999894341, -0.01399203985, 0.1700976954, 0.01445849432, 0.9853211284]
+      focal: [554.2562584220409, 554.2562584220409]
+      xi: 2.280351129
+      image_size: [1920, 1208]
+      center_point: [960, 604]
+      mount: False
+    sekonix_90:
+      version: "carla"
+      msg: "classic"
+      format: "rgb"
+      translation: [-0.2, 0., 2.75]
+      rotation: [0, 90, 0]
+      focal: [960.0000000000001, 960.0000000000001]
+      xi: 2.280351129
+      image_size: [1920, 1208]
+      center_point: [960, 604]
+      mount: False
+    rgb_bev:
+      version: "carla"
+      msg: "classic"
+      format: "rgb"
+      translation: [3.0, 0.0, 15.0]
+      rotation: [0, 90, 0]
+      focal: 362.132
+      image_size: [300, 300]
+      mount: False    
+
+  detection:
+    type: "3d"                                                  # detection format: 2d or 3d
+    mount: True                                              # use detections on vehicle/carla?                                                   
+    ground_truth: False
+
+########################################################################################################################
+################################################### Labels #############################################################
+########################################################################################################################
+labels:
+  segmentation:
+    id_road: 4 # 98 #[98, 99, 100]
+    id_sky: 0 # 142
+    id_terrain: 0 #102
+    num_classes: 19 # 193
+    id_car: 10
+    id_pedestrian: 5
+  detection:
+    id_pedestrian: 0
+    id_car: 1
+
+########################################################################################################################
+################################################## Projection ##########################################################
+########################################################################################################################
+projection:
+  cameras:
+    sekonix_60:
+      topic_depth: "perception/depth_img"
+      topic_segmentation: "perception/segmentation"
+      topic_pc_pred: "perception/depth_pc"
+      topic_radar: "adre_ibeoRaw"
+      queue_pub: 1
+      queue_sub: 1
+      queue_sync: 10
+      max_distance: 40.0
+      include_terrain: False
+      proj_scale: 0.5
+
+    sekonix_120:
+      topic_depth: "perception/depth_img"
+      topic_segmentation: "perception/segmentation"
+      topic_pc_pred: "perception/depth_pc"
+      topic_radar: "/adre_ibeoRaw"
+      queue_pub: 1
+      queue_sub: 1
+      queue_sync: 10
+      max_distance: 40.0
+      include_terrain: False
+      proj_scale: 0.5
+
+########################################################################################################################
+################################################## Segmentation ########################################################
+########################################################################################################################
+segmentation:
+  cameras:
+    sekonix_60:
+      topic_in: "/adre_sekonix60degCompressed_resized"
+      topic_out: "perception/segmentation"
+      queue_pub: 1
+      queue_sub: 1
+      config_file: "${ADRE_ROOT}/adre-lib/adre_lib/perception/recognition/recognition_2d/mseg_semantic/mseg_semantic/config/test/480/default_config_ss.yaml"
+      backbone: ""
+      weights_file: "${ADRE_ROOT}/adre-ros/adre_ros/perception/recognition/recognition_2d/mseg_semantic/models_weights_segmentation/train_epoch_344.pth"
+      #weights_file: "${ADRE_ROOT}/adre-ros/adre_ros/perception/recognition/recognition_2d/mseg_semantic/models_weights_segmentation/resnext50_epoch81_isil_real.pth"
+      mask_ego_file: "${ADRE_ROOT}/adre-lib/adre_lib/commons/masks/mask_fov60.png"
+      valid_bot_y: 0
+      gpu: 0
+      opt_script: True
+      opt_tensorrt: False
+      opt_precision: "fp32"
+      width: 576
+      heihgt: 362
+
+    sekonix_120:
+      topic_in: "/adre_sekonix120degCompressed_resized"
+      topic_out: "perception/segmentation"
+      queue_pub: 1
+      queue_sub: 1
+      config_file: "${ADRE_ROOT}/adre-lib/adre_lib/perception/recognition/recognition_2d/mseg_semantic/mseg_semantic/config/test/480/default_config_ss.yaml"
+      backbone: "efficientnet_fpn"
+      # weights_file: "${ADRE_ROOT}/adre-ros/adre_ros/perception/recognition/recognition_2d/mseg_semantic/models_weights_segmentation/mseg-3m-480p.pth"
+      weights_file: "${ADRE_ROOT}/models/mseg/models_weights/hrnet_dynamic_pseudoannotated.pth"
+      mask_ego_file: "${ADRE_ROOT}/adre-lib/adre_lib/commons/masks/mask_fov120.png"
+      valid_bot_y: 1
+      gpu: 0
+      opt_script: True
+      opt_tensorrt: False
+      opt_precision: "fp32"
+      width: 576
+      heihgt: 362
+
+########################################################################################################################
+##################################################### Depth ############################################################
+########################################################################################################################
+depth:
+  cameras:
+    sekonix_60:
+      topic_in: "/adre_sekonix60degCompressed_resized"
+      topic_out: "perception/depth_img"
+      queue_pub: 1
+      queue_sub: 1
+      config_file: "${ADRE_ROOT}/adre-lib/adre_lib/perception/reconstruction/depth_estimation/mono_depth/configs/hrnet_w48_vk2.yaml"
+      #backbone: "EfficientNet"
+      #weights_file: "${ADRE_ROOT}/models/monodepth/models_weights/monodepth_weight_63"
+      #num_layers: 0
+      backbone: "resnet"
+      weights_file: "${ADRE_ROOT}/models/monodepth/models_weights/weights_27"
+      num_layers: 18
+      scales: 4
+      hr: False
+      scale_factor: 0.86   # 1/1.5
+      shift_factor: 0.86
+      gpu: 0
+      opt_script: True
+      opt_tensorrt: False
+      opt_precision: "fp32"
+      use_autoscale: False
+      min_time_sync: 0.1
+      depth_sensor_name: "velodyne"
+      topic_depth_sensor: "/adre_velodyneFrontLeft"
+
+
+    sekonix_120:
+      topic_in: "/adre_sekonix120degCompressed_resized"
+      topic_out: "perception/depth_img"
+      queue_pub: 1
+      queue_sub: 1
+      config_file: "${ADRE_ROOT}/adre-lib/adre_lib/perception/reconstruction/depth_estimation/mono_depth/configs/hrnet_w48_vk2.yaml"
+      backbone: "EfficientNet"
+      weights_file: "${ADRE_ROOT}/models/monodepth/models_weights/efficientnet_all_120"
+      num_layers: 0
+      scales: 4
+      hr: False
+      scale_factor: 1.0   # 1/1.5
+      shift_factor: 0.0
+      gpu: 0
+      opt_script: True
+      opt_tensorrt: False
+      opt_precision: "fp32"
+      use_autoscale: False
+      min_time_sync: 0.1
+      depth_sensor_name: "velodyne"
+      topic_depth_sensor: "/adre_velodyneFrontLeft"
+
+########################################################################################################################
+############################################### Depth Completion #######################################################
+########################################################################################################################
+
+completion:
+  cameras:
+    sekonix_60:
+      config_file: "${ADRE_ROOT}/adre-lib/adre_lib/perception/reconstruction/depth_completion/calibrated_backproj/configs/kitti/pretrained_config.yaml"
+      weights_file: "${ADRE_ROOT}/adre-lib/adre_lib/perception/reconstruction/depth_completion/calibrated_backproj/pretrained_models/kitti/kbnet-kitti.pth"
+      topic_depth: "perception/depth_lidar"
+      topic_out: "/perception/depth_img"
+      gpu: 0
+      opt_script: False
+      opt_tensorrt: False
+      opt_precision: "fp16"
+      take_half: True
+      divide_by: 1
+      queue_sub: 1
+      queue_pub: 1 
+    sekonix_120:
+      config_file: "${ADRE_ROOT}/adre-lib/adre_lib/perception/reconstruction/depth_completion/calibrated_backproj/configs/kitti/pretrained_config.yaml"
+      weights_file: "${ADRE_ROOT}/adre-lib/adre_lib/perception/reconstruction/depth_completion/calibrated_backproj/pretrained_models/kitti/kbnet-kitti.pth"
+      topic_depth: "perception/depth_lidar"
+      topic_out: "/perception/depth_img"
+      gpu: 0
+      opt_script: False
+      opt_tensorrt: False
+      opt_precision: "fp16"
+      take_half: True
+      divide_by: 1
+      queue_sub: 1
+      queue_pub: 1         
+
+########################################################################################################################
+################################################## Road parser #########################################################
+########################################################################################################################
+road_parser:
+  cameras:
+    sekonix_60:
+      topic_pc_road: "perception/depth_pc"
+      topic_road_left: "perception/road_borders_left"
+      topic_road_right: "perception/road_borders_right"
+      border_filter: True
+      ransac_threshold: 0.08
+      queue_sub: 1
+      queue_pub: 1
+      max_scales: 30            # max_scales * size_scale = max_distance
+      size_scale: 1.0           # meters
+      ransac: False
+      ransac_threshold: 0.2
+      ransac_max_iteration: 100
+      left_margin: 3.0          # pixels 
+      right_margin: 3.0         # pixels
+      precision_radar: 0.1
+      size_kernel_radar: 15
+      radar_dist_to_plane: 0.3
+      min_curvature: 2000
+      dist_reduced_curve: 1.0
+      remove_blobs: False
+
+    sekonix_120:
+      topic_pc_road: "perception/depth_pc"
+      topic_road_left: "perception/road_borders_left"
+      topic_road_right: "perception/road_borders_right"
+      ransac_threshold: 8.0
+      border_filter: True
+      queue_sub: 1
+      queue_pub: 1
+      max_scales: 50            # max_scales * size_scale = max_distance
+      size_scale: 1.0           # meters
+      ransac: True
+      ransac_threshold: 0.08
+      ransac_max_iteration: 100
+      precision_radar: 0.1
+      size_kernel_radar: 15
+      radar_dist_to_plane: 0.3
+      min_curvature: 250.0
+      dist_reduced_curve: 0.0
+      remove_blobs: False
+
+########################################################################################################################
+############################################### Imitation Learning #####################################################
+########################################################################################################################
+imitation_learning:
+  cameras:
+    sekonix_60:
+      topic_depth: "perception/depth_img"
+      topic_segmentation: "perception/segmentation"
+      topic_pc_depth: "perception/depth_pc"
+      topic_waypoints: "/path_planning/waypoints/raw_IL"
+      topic_obstacles: ""
+      queue_pub: 1
+      queue_sub: 1
+      backbone: "resnet18"
+      weights_file: "${ADRE_ROOT}/models/waypoints/models_weights_waypoints/isil_all_except_stop.ckpt" # resnet18_20waypoints_60FOV_interpollation.ckpt"
+      nb_waypoints: 20
+      use_waypoints: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+      gpu: 0
+      use_detections: False
+      use_pc: True
+      use_target: False
+    sekonix_120:
+      topic_depth: "perception/depth_img"
+      topic_segmentation: "perception/segmentation"
+      topic_radar: "/adre_ibeoRaw"
+      topic_pc_depth: "perception/depth_pc"
+      topic_waypoints: "/path_planning/waypoints/raw_IL"
+      topic_obstacles: ""
+      queue_pub: 1
+      queue_sub: 1
+      backbone: "resnet18"
+      # weights_file: "${ADRE_ROOT}/models/waypoints/models_weights_waypoints/IL_radar_with_beginning.ckpt" #isil_radar_seg_40_mirroring.ckpt" # 120_isil_all_except_stop.ckpt # resnet18_20waypoints_120FOV_noise_side_rotate_stop_new_shift.ckpt"
+      weights_file: "${ADRE_ROOT}/models/waypoints/models_weights_waypoints/isil_radar_seg_40_09_nov.ckpt" #isil_radar_seg_40_mirroring.ckpt" # 120_isil_all_except_stop.ckpt # resnet18_20waypoints_120FOV_noise_side_rotate_stop_new_shift.ckpt"
+      nb_waypoints: 20
+      use_waypoints: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+      gpu: 0
+      use_detections: False
+      use_pc: True
+      use_target: False
+      use_radar: True
+      radar_float: False
+      queue_sub_sync: 1
+
+cilv2_multiview:
+  camera_name1: "sekonix_60"
+  camera_name2: "sekonix_120"
+  camera_name3: "conti_front"
+  topic_cam1: "/cam"
+  topic_cam2: "/cam"
+  topic_cam3: "/cam"
+  topic_ego: "/odo"
+  topic_control: "/control"
+  topic_action: "/agent_action"
+  weights_file: "${ADRE_SRC}/models/CILv2_multiview/models_weights_waypoints/CILv2_multiview_attention_90_654279.pth"
+  config_file: "${ADRE_SRC}/adre-lib/adre_lib/perception/interpretation/CILv2_multiview/configs/CILv2/CILv2_3cam_uab_december.yaml"
+  max_speed: -1.0
+  norm_acc: 6.0
+  norm_speed: 1.0
+  norm_steer: 3.14159265359
+  gpu: 0
+  queue_pub: 1
+  queue_sub: 1
+  queue_sub_sync: 30
+
+########################################################################################################################
+################################################### Detection ##########################################################
+########################################################################################################################
+detection2d:
+  cameras:
+    sekonix_60:
+      config_file: "${ADRE_ROOT}/adre-lib/adre_lib/perception/recognition/recognition_2d/detectron/configs/Carla-Detection/faster_rcnn_R_50_FPN_1x.yaml"
+      backbone: "efficientnet_fpn"
+      weights_file: "${ADRE_ROOT}/adre-ros/adre_ros/perception/recognition/recognition_2d/detectron/models_weights_detection/efficientnet_fpn_fov60.pth"
+      gpu: 0
+      opt_script: True
+      opt_tensorrt: False
+      opt_precision: "fp32"
+      topic_in: "/adre_sekonix60degCompressed_resized"
+      topic_out: "/perception/detections2d"
+      queue_pub: 1
+      queue_sub: 1
+
+    sekonix_120:
+      config_file: ""
+      backbone: ""
+      weights_file: "${ADRE_ROOT}/models/yolo/models_weights_detection/yolov7x.pt"
+      gpu: 0
+      opt_script: True
+      opt_tensorrt: False
+      opt_precision: "fp32"
+      topic_in: "/adre_sekonix120degCompressed_resized"
+      topic_out: "/perception/detections2d"
+      queue_pub: 1
+      queue_sub: 1
+
+detection3d:
+  cameras:
+    sekonix_60:
+      config_file: Null
+      weights_file: Null
+      gpu: 0
+      calib_path: "${ADRE_ROOT}/adre-ros/adre_ros/perception/recognition/recognition_3d/combination/extra_files/calib_camera_fov60.json"
+      class_stats_path: "${ADRE_ROOT}/adre-ros/adre_ros/perception/recognition/recognition_3d/combination/extra_files/class_averages_carla.txt"
+      threshold: 0.85
+      k_smallest: 1
+      topic_depth: "/perception/depth_img"
+      topic_segmentation: "perception/segmentation"
+      topic_detections: "/perception/detections2d"
+      topic_image: "/adre_sekonix60degCompressed_resized"
+      topic_out: "/perception/obstacles"
+      queue_pub: 1
+      queue_sub: 1
+      queue_sub_sync: 30
+
+    sekonix_120:
+      config_file: Null
+      weights_file: Null
+      gpu: 0
+      calib_path: "${ADRE_ROOT}/adre-ros/adre_ros/perception/recognition/recognition_3d/combination/extra_files/calib_camera_fov60.json"
+      class_stats_path: "${ADRE_ROOT}/adre-ros/adre_ros/perception/recognition/recognition_3d/combination/extra_files/class_averages_carla.txt"
+      threshold: 0.85
+      k_smallest: 1
+      topic_depth: "/perception/depth_img"
+      topic_segmentation: "perception/segmentation"
+      topic_detections: "/perception/detections2d"
+      topic_image: "/adre_sekonix120degCompressed_resized"
+      topic_out: "/perception/obstacles"
+      queue_pub: 1
+      queue_sub: 1
+      queue_sub_sync: 30
+
+########################################################################################################################
+############################################## Image Conversion ########################################################
+########################################################################################################################
+
+conversion:
+  cameras: 
+    sekonix_60:
+      topic_in : /adre_sekonix60degCompressed_resized
+      topic_out: perception/std_image
+      queue_pub: 1
+      queue_sub: 1 
+
+########################################################################################################################
+############################################# Lidar manipulation #######################################################
+########################################################################################################################
+
+lidar_manip:
+  cameras: 
+    sekonix_60:
+      topic_in : /adre_velodyneFrontLeft
+      topic_out: perception/depth_lidar
+      queue_pub: 1
+      queue_sub: 1
+    sekonix_120:
+      topic_in : /adre_velodyneFrontLeft
+      topic_out: perception/depth_lidar
+      queue_pub: 1
+      queue_sub: 1 
+
+########################################################################################################################
+################################################### Vehicle ############################################################
+########################################################################################################################
+vehicle:
+  map_position:
+    ################### RECT MAP ###################
+    # translation: [0.0, 0.0, 1.0]  #1347.8718994140625
+    # rotation: [0.0, 0.0, 0.0]
+
+    ################### UAB MAP #####################
+    # translation: [-224.79260757046114, 500.1489765286568, 140.48339014646447] 
+    # rotation: [-3.0517572668031803e-05, 0.0001570943422848359, -34.82393264770509]
+
+    ################### ISIL MAP ###################
+    translation: [-636.6767415315152, 1313.1640496977873, 1372.8328447044912]  
+    rotation: [0.0, 0.0, -60.0]
+
+    ################### Most closest to the bridge from Fornet side ###################
+    # translation: [-365.93060302734375, 1027.5354736328125, 1347.8718994140625]  #1347.8718994140625
+    # rotation: [0.0, 0.0, 5.0]
+
+    ################### Farther to the bridge from Fornet side ###################
+    # translation: [-380.93060302734375, 1023.2354736328125, 1347.8718994140625]  #1347.8718994140625
+    # rotation: [0.0, 0.0, 0.0]    
+    
+    ################### After the plant collision location towards fornat ###################
+    # translation: [-255.4, 1023.561, 1347.10] 
+    # rotation: [0.0, 0.0, 150.0]
+    
+    ################### Before the plant collision location towards fornat ###################
+    # translation: [-224.014, 1016.95, 1347.759399] 
+    # rotation: [0.0, 0.0, 145.0]
+
+
+    ################### Before the plant collision location opposite to fornat ###################
+    # translation: [-224.014, 1016.95, 1347.759399] 
+    # rotation: [0.0, 0.0, -10.0]
+
+
+    # # ################### Testing for segmentation error ###################
+    # translation: [-113.79461669921875, 895.265625, 1342.8521240234375] 
+    # rotation: [0.0, 0.0, -90.0]
+    
+  environment:
+    gravity: 9.81                                                    # Gravity acceleration [m/s2]
+    air_density: 1.225                                               # Density of the air [kg/m3]
+
+  kinematics:
+    wheelbase: 2.63                                                  # Distance from rear to front axles [m]
+    width: 1.79                                                      # Lateral distance between ego's right and left side [m]
+    length: 4.69                                                     # Longitudinal length between ego's frontal and bottom sides [m]
+    lr: 1.305774                                                         # Distance between center of gravity and rear axle [m]
+    lf: 1.3242                                                         # Distance between center of gravity and front axle [m] 
+
+  dynamics:
+    mass:  1853.0                                                    # Ego's total mass [kg]
+    drag_area: 2.22                                                  # Frontal ego's area which collides against the air [m2]
+    drag_coefficient:  0.27                                          # Drag coefficient (Cd)
+    center_of_mass: {"x": 0.011, "y": 0.0, "z": -0.225}              # Center of gravity relative to bounding box center [m]
+    CoG: {"x": 0.45, "y": 0.0, "z": 0.5}                             # Center of gravity relative to rear axle's center projected on road [m]
+    moi_ego: 2451.45                                                 # Ego's moment of inertia [kg·m2] 
+    Cr: 200.0                                                        # Rear lateral stiffness coeficient [N/rad]
+    Cf: 200.0                                                        # Frontal lateral stiffness coeficient [N/rad]
+    tire_friction: 0.42                                               # Friction value = [Friction coefficient/0.7] between tires and road (mu) , 0.7 is the scaling factor inside calra <-- > Physx 
+    status: "Ready"                                                  # Ego status. Options: 'Off', 'Ready', 'On', 'Obstacle', 'Emergency'
+
+  boundaries:
+    a_lat_max: 1.0                                                   # Maximum admissible lateral acceleration [m/s2]
+    v_max: 5.3                                                      # Maximum admissible speed magnitude [m/2]
+    steer_max: 36.544585987                                          # Maximum admissible steering angle [rad]
+    a_throttle_max: 1.0                                              # Maximum admissible throttle acceleration [m/s2]
+    a_brake_max: -1.5                                                # Maximum admissible brake deceleration [m/s2]
+    da_max: 0.25                                                     # Maximum admissible acceleration/decceleration rate [m/s3]
+    w_steer_max: 0.5  
+
+  ACC:
+    type: "PID"
+    enabled: True                                                    # ACC enabled?
+    rule: True                                                       # Follow ACC rules?
+    frequency: 0.0                                                   # PID control frequency (set to 0 if as fast as possible)
+    maxlen: 100
+    kp_throttle: 0.3                                                 # Memory queue for PID
+    kp_brake: 0.3                                                  # PID Proportional constant 
+    ki: 0.05                                                         # PID Integral constant 
+    kd: 0.0                                                        # PID Derivative constant 
+
+  nvidia_physx:
+    apply_real_physx: True
+    moi_motor:  1.0                                                  # Motor's moment of inertia [kg·m2]
+    damping_rate_full_throttle:  0.15                                # Damping rate full throttle  [N·s/m]
+    damping_rate_zero_throttle_clutch_engaged:  0.15                 # Damping rate no throttle clutch engaged [N·s/m]
+    damping_rate_zero_throttle_clutch_disengaged:  0.3               # Damping rate no throttle clutch disengaged [N·s/m]
+    gear_switch_time:  0.00001                                       # Gear switching time (set close to 0 as we won't have gears) [s]
+    clutch_strength:  1000.0
+    final_ratio:  1.0
+    ratio : 3.61 
+    wheel_steering_ratio: 15.0
+    max_rpm:  12000.0                                                # Maximum angular speed in tractive motor axle [rpm]
+    down_ratio : 1.0                                     
+    up_ratio : 0.00001       
+    max_brake_torque: 540                                            # Maximum brake torque [N·m]
+    max_handbrake_torque: 1270                                       # Maximum brake torque with handbrake [N·m]
+    long_stiff_value: 1000                                           # Longitudinal stiffness value
+    lat_stiff_max_load: 2.0
+    lat_stiff_value: 17.0
+    damping_rate: 1.0
+    wheel_radius: 32.62                                              # Wheel radius [cm]
+    torque_curve: [[0.0, 270.0], [1200.0, 270.0], [12000.0, 270.0]]  # Torque curve vs angular speed [rpm vs N·m]
+    steering_curve:  [[0.0, 0.6375], [60, 0.6375], [150, 0.6375],[1000, 0.6375], [2000, 0.6375], [3000, 0.6375], [6000, 0.6375], [12000, 0.6375]]    # Steering curve vs angular speed [rpm vs rad]
+
+########################################################################################################################
+################################################## Estimation ##########################################################
+########################################################################################################################
+estimator:
+  estimator_type: 'kalman'                                          # Options: 'kalman', 'lqr'
+  frequency_estimator: 100                                          # publishing frequency                                
+  vehicle_model_estimator: 'dynamic'                                # options: dynamic, kinematic or kinematic_lpv 
+
+########################################################################################################################
+################################################# Path Planning ########################################################
+########################################################################################################################
+path_planning:
+  spatial_filtering:
+    test_new_development: True                                      # For testing the new lane model fitting
+    fit_method: 'huber'                                             # Only applied when test_new_development is true: Fitting method type, Options: 'ransac', 'huber', 'regression'
+    polynomial_degree: 3
+    model_type: 'approx2'                                           # exact: if deviation are considered (unstable now), approx1: if lanes are not parallel but share the same 'a' coefficient (currently working), approx2: if both the road are paraller and coefficients are same except the intercepts (currently working and maybe the best)
+    optimize_simultaneously: True                                   # Currently optimize together, this function has to be added. Fit both lane model simultaneously otherwise separately.
+    verbose: False                                                  # Print the model of the lane and lane information
+    road_fitting_region: [5.5, 25.0]                                # Raw points taken inside this x range
+    start_x_axis: 0.0                                               # starting point for prediction
+    end_x_axis: 20.                                                 # end point for prediction
+    dist_bw_x_pts: 0.5                                              # distance in x-axis [meter] 
+    publish_model_coeff: True                                       # publish model coefficient
+    use_ransac_preprocess: False
+    dynamic_bounds: True                                            # calculate bounds using the vehicle states
+    offset: 0.0                                                    # shift the feasible path in meter. If positive then the path shift left (towards pas) and if negative to the right (towards fornat). The direction of the vehicle should be considered
+    projection_percentage: 0.                                     # percentage for no of points needed to created near the vehicle each side. the percentage is mulitplied with number of road borders data points available. This much number of data will be created
+    projection_length: 3.0                                          # the distance upto which the borader at each side will be created, starting from 0.
+    dynamic_road_fitting_region: False                               # if True: dynamic fitting region will be used using the focus or 1/curvature of the detected raw lane
+    fit_region_variation: [15.0, 25.0]                                  # if dynamic_road_fitting_region = True then the maximum distance will vary between these two number
+    focus_variation: [20.0, 100.0]                                      # if dynamic_road_fitting_region = True then the saturation will be done beyond this two focus value
+    remove_closer_points: True                                      # Remove if two points from left and right borders are closers to each other defined by threshold, "remove_closer_points_thresh"
+    remove_closer_points_thersh: 1.0                               # a threshold to remove the closed points. eucledina didtance in meters
+
+  temporal_filtering:         
+    use_temporal_corrected_lane: True 
+    lane_model_disturb: [0.0005, 0.0053, 0.01]
+    lane_meas_noise: [0.002, 0.02, 0.01]
+    temporal_correction: True
+    publish_model_coeff: True
+    visualize_plot: False
+    nx: 3
+    project_lane: True                                              # Projection of lane for low FOV camera
+    projection_type: 'double_fit'                                               # projection_type:: 'double_fit': Project visible lane to other side to simulate as missing lane and then do the optimization on both the lane to find the parameter 
+                                                                    # projection_type:: 'single_fit': Only fits the visible lane and this parameters will be used. It could be wrong as the orientation of vehicle is not taken into consideration
+                                                                    # projection_type:: 'single_fit_half_width': Fits the visible lane same as above but in the next step the intercept is changed to half width, work from pas to fornet
+  shift_limits:  
+    do_shift_limit: False 
+    safety_coefficient: 1.2
+    max_distance_stop: 5.0
+    approach_dist: 10.0
+    safety_shifting: False
+    use_markers: False                                              # gt of carla or the obstacle directly from perception
+
+  waypoints:
+    ground_truth_planner: False                                     # Use CARLA centerline as waypoints?
+    set_division_waypoints: False                                   # if False the points will have same x- distance set in shift limit, otherwise method will be applied
+    no_of_waypoints: 5                                              # prediction horizon for control only applied when set_division_waypoints = True.
+    division_type: 'Distance'                                       # Points/Distance (only activated when the set_division_waypoints = True )
+    # towards fornet
+    # file: "${ADRE_ROOT}/adre-ros/adre_ros/rosbags/06-09-22/rosbag2_2022_09_06-11_39_47/rosbag2_2022_09_06-11_39_47_0.db3"
+    
+    # opposite to fornet
+    # file: "${ADRE_ROOT}/adre-ros/adre_ros/rosbags/06-09-22/rosbag2_2022_09_06-11_36_26/rosbag2_2022_09_06-11_36_26_0.db3"
+    
+    # UAB
+    # file: "${ADRE_ROOT}/adre-ros/adre_ros/rosbags/16-08-22/rosbag2_2022_08_16-18_46_01/rosbag2_2022_08_16-18_46_01_0.db3"
+    
+    #Alos full path
+    file: "${ADRE_ROOT}/adre-ros/adre_ros/rosbags/29-09-22_full_path/rosbag2_2022_09_29-14_52_42/rosbag2_2022_09_29-14_52_42_0.db3"
+
+    reverse: False
+    file_format_data: "other"
+    use_simulator: True
+
+  feasible_path:
+    regenerate_sharp_waypoints: False                               # fits multiple independent splines on data points
+    detections_enabled: True
+    min_road_width: 0.0
+    safety_coefficient: 1.2
+    curve_prediction_distance: 30.0
+    sharp_waypoint_spline_degree: 2                                 # polynomial degree of waypoints, only activated when regenerate_sharp_waypoints = True
+    algorithm: 'interpolation'                                        # model_based: Model based,  interpolation: interpolation
+    reference_velocity_type: 'continuous'                             # options: discrete, continous # used to assign desried velocity  
+    fos: 0.02                                                      # factor of saftey, the value represnt the precentage of velocity needs to be reduced i.e. max_v*(1-fos)
+    horizon: 30                                                     # planning horizon set more than 6 only when QP MPC type is used
+    vehicle_model: 'kinematic'                                      # kinematic: Use vehicle kinematic model , dynamic: use vehicle dynamic model
+    path_margin: 2.0                                                # ration between the length of path planner to the controller path
+    compare_with_gt: False                                          # ground truth waypoint will be used from carla only isil works for now
+    primary_planner_method: "IL"                               # classic: Road border based, rtk: Recorded Waypoint based, IL: imitation learning based
+    IL_Kalman: False                                                # kalman filter for smoothing
+    use_UWB_switch: True                                           # True: Switch to rtk waypoints else to the primiary planner method
+    fuse_path: True                                                # Ture: Fuse two inout path during transition from RTK and perception
+    transition_time: 7.0                                           # transition time for fusing both path a*path_1 + (1-a)*path_2
+    stop_and_go: True                                              # True: Switch stop and go
+    lane_model_disturb_IL: [0.005, 0.05, 0.01]                  # Model diturbance for EKF
+    lane_meas_noise_IL: [0.02, 0.2, 0.5]                           # measurment diturbance for EKF
+    smooth_reference_velocity: True                                    # True: if you want to smooth the reference
+    win_size: 15                                                     # window size for moving average of smooth reference velocity
+    decrease_speed_near_parking_area: True                         # True: speed will decrease by set value
+    decrease_speed_by: 0.10                                         # percentage 0-1 
+    correct_delay: True                                             # consider pipeline delay during control calculation
+    control_delay_sec: 0.08                                          # time to reach control signal to actuators in sec   
+
+########################################################################################################################
+#################################################### Control ###########################################################
+########################################################################################################################
+controller:
+  mpc_type: 'noQP'                                                  # least square optimization (noQP) or quadratic programming(QP) (QP is unstable for now)
+  test_env: 'superwolle'                                                 # test environment:: carla, superwolle
+  test_case: 'with_carla_sim'                                       # Options: 'with_noise_sim', 'with_estimation', 'with_carla_sim', 'with_real_vehicle' , 'without_perception' 
+  mpc_weights_file: '${ADRE_ROOT}/adre-lib/adre_lib/motion_control/control/mpc/mpc_weights.yml'
+  state_initialization: False                        
+  calibration_mode: False
+  recording_file: '/home/tda/Documents/parameters_mpc/'
+  delay: 0                                                          # Delay between controller and actuators [s]
+  v_max_kinematic: 10
+
+  no_qp:                                                  
+    frequency: 10                                                   # controller sampling time, set more than 12 only when QP mpc_type is used.
+    horizon: 10                                                      # Currently it is set to 5 for noQp, set more than 6 only when QP MPC type is used                   
+    vehicle_model: 'kinematic'                                      # options: dynamic, kinematic or kinematic_lpv 
+    calibration: False
+  
+  qp:
+    frequency: 10                                                   # controller sampling time, set more than 12 only when QP mpc_type is used.
+    horizon: 10                                                     # Currently it is set to 5 for noQp, set more than 6 only when QP MPC type is used                   
+    vehicle_model: 'dynamic_lpv'
+    kinematic_states: '6_states'                                    # '4_states': for kinematic 4 state model, '6_states' for including all the 6 states. Note: Don't use '4_states' in case on dynamic model
+    calibration: False
+
+########################################################################################################################
+################################################## Visualization #######################################################
+########################################################################################################################
+visualization:
+  viewpoint_shift: False
+  viewpoint_view: False
+
+########################################################################################################################
+################################################### Logger files #######################################################
+########################################################################################################################
+logger:
+  perception: "${ADRE_ROOT}/configs/logger/log_config_perception.json"
+  watchdog: "${ADRE_ROOT}/configs/logger/watchdog_logger.json"
+  path_planning: "${ADRE_ROOT}/configs/logger/log_config_planning.json"
+  control: "${ADRE_ROOT}/configs/logger/log_config_control.json"
+  speed_sentry: "${ADRE_ROOT}/configs/logger/speed_sentry_logger.json"
+
+########################################################################################################################
+################################################### Watchdog Configuration #############################################
+########################################################################################################################
+watchdog:
+  version: 1
+  factor_to_miss: 0.5
+  misses_to_abort: 3
+  watchdogs:
+    watchdog":
+      topic: "watchdog"
+      hz: 100
+      factor_to_miss: 0.5
+      misses_to_abort: 6
+    speed_sentry:
+      topic: "speed_sentry"
+      hz: 10
+      factor_to_miss: 0.8
+      misses_to_abort: 1
+      process_name: speed_sentry.py
+    control:
+      topic: "control"
+      hz: 10
+      factor_to_miss: 0.5
+      misses_to_abort: 2
+      process_name: control.py
+    feasible_path:
+      topic: "feasible_path"
+      hz: 10
+      factor_to_miss: 0.5
+      misses_to_abort: 2
+      process_name: feasible_path.py
+
+
+########################################################################################################################
+################################################### Speed Sentry Configuration #########################################
+########################################################################################################################
+speed_sentry:
+  version: 1
+  max_speed: 25

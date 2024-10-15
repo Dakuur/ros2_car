@@ -1,0 +1,57 @@
+version: "2.3"
+services:
+ # Infrastructure part:
+  spawn_parameters:
+    image: "${DETECTRON_IMG}"
+    environment:
+    - LOGGER_CONFIG_FILE=${ADRE_ROOT_CONTAINER}/configs/logger/log_config_control.json
+    env_file:
+      - $ENV_FILE
+    volumes:
+      - "${ADRE_SRC}/adre-lib:${ADRE_ROOT_CONTAINER}/adre-lib"
+      - "${ADRE_SRC}/adre-ros:${ADRE_ROOT_CONTAINER}/adre-ros"
+      - "${ADRE_SRC}/logger:${ADRE_ROOT_CONTAINER}/logger"
+      - "${ADRE_SRC}/models:${ADRE_ROOT_CONTAINER}/models"
+      - "${ADRE_ROOT}/configs/params:${ADRE_ROOT_CONTAINER}/configs/params"
+      - "${ADRE_ROOT}/configs/logger:${ADRE_ROOT_CONTAINER}/configs/logger"
+      - "${ADRE_ROOT}/configs/dds:${ADRE_ROOT_CONTAINER}/configs/dds"
+      - "${ADRE_SRC}/logs/:${ADRE_ROOT_CONTAINER}/logs"
+    command: python3 ${ADRE_ROOT_CONTAINER}/adre-ros/adre_ros/commons/params/params_service.py --ros-args -p parameter_file:=${ADRE_ROOT_CONTAINER}/configs/params/debug/superwolle_CILv2.yaml
+    network_mode: host
+    ipc: host
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            device_ids: ['0']
+            capabilities: [gpu]
+
+## imitation learning waypoints
+  cil_v2:
+    image: "${DETECTRON_IMG}"
+    environment:
+    - LOGGER_CONFIG_FILE=${ADRE_ROOT_CONTAINER}/configs/logger/log_config_planning.json
+    env_file:
+      - $ENV_FILE
+    volumes:
+      - "${ADRE_SRC}/adre-lib:${ADRE_ROOT_CONTAINER}/adre-lib"
+      - "${ADRE_SRC}/adre-ros:${ADRE_ROOT_CONTAINER}/adre-ros"
+      - "${ADRE_SRC}/logger:${ADRE_ROOT_CONTAINER}/logger"
+      - "${ADRE_SRC}/watchdog:${ADRE_ROOT_CONTAINER}/watchdog"
+      - "${ADRE_SRC}/models:${ADRE_ROOT_CONTAINER}/models"
+      - "${ADRE_ROOT}/configs/logger:${ADRE_ROOT_CONTAINER}/configs/logger"
+      - "${ADRE_ROOT}/configs/dds:${ADRE_ROOT_CONTAINER}/configs/dds"
+      - "${ADRE_SRC}/logs/:${ADRE_ROOT_CONTAINER}/logs"
+
+    command: python3 ${ADRE_ROOT_CONTAINER}/adre-ros/adre_ros/perception/interpretation/CILv2_multiview/waypoints_generator.py
+    privileged: true
+    network_mode: host
+    ipc: host
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            device_ids: ['0']
+            capabilities: [gpu]     
