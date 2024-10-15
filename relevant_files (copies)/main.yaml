@@ -41,6 +41,9 @@ launch:
     param:
     -
         name: "max_speed"
-        value: 1.8
+        value: 1.8 # def: 1.8
+    -
+        name: "max_steer"
+        value: 1 # def: 1
 
 # colcon build --packages-select odo joy_cap cam_cap car_control --symlink-install

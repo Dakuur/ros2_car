@@ -27,8 +27,11 @@ class ControlSubscriber(Node):
             1)
         self.egomaster_subscription  # prevent unused variable warning
 
-        self.declare_parameter('max_speed', 1.8)  # Declarar el parámetro js_id con valor predeterminado 1.8
+        self.declare_parameter('max_speed', 1.8)  # def: 1.8 m/s
         self.max_speed = self.get_parameter('max_speed').get_parameter_value().double_value
+
+        self.declare_parameter('max_steer', 1.0)  # def: 1.0
+        self.max_steer = self.get_parameter('max_steer').get_parameter_value().double_value
 
         # Inicializar el robot
         self.robot = Rosmaster(debug=False)
@@ -74,7 +77,8 @@ class ControlSubscriber(Node):
         if speed < 0:
             speed = 0.0
 
-        limited_speed = min(self.max_speed, speed)  # Limitar a la velocidad máxima de 1.8 m/s
+        limited_speed = min(self.max_speed, speed)  # Limitar a la velocidad máxima
+        limited_steer = max(-self.max_steer, min(self.max_steer, self.steering))  # Limitar a la dirección en el rango [-max_steer, max_steer]
 
         if float(self.acc) == float(-3.6) and not self.emergency:  # Emergency stop
             self.robot.set_car_motion(0, 0, 0)
@@ -85,16 +89,13 @@ class ControlSubscriber(Node):
             self.end_emergency()  # Llamar a end_emergency después de la pausa
 
         # Enviar los comandos de velocidad al robot
-        self.robot.set_car_motion(limited_speed, self.steering * 0.045, 0)
+        self.robot.set_car_motion(limited_speed, limited_steer * 0.045, 0)
 
         if self.steering == float(0):
             self.robot.set_pwm_servo(servo_id=1, angle=90)
 
-        """self.robot.set_car_run(state=1, speed=limited_speed*(100/1.8), adjust=True)
-        angle = self.steering_to_degrees(self.steering)
-        self.robot.set_pwm_servo(servo_id=1, angle=angle)"""
-
-        self.get_logger().info(f"Car speed set to {limited_speed:.3f} m/s")
+        self.get_logger().info(f"Car speed set to {limited_speed:.3f} m/s.")
+        #self.get_logger().info(f"Max speed: {self.max_speed:.3f} m/s, max steer: {self.max_steer:.3f}")
 
     def end_emergency(self):
         self.robot.set_colorful_effect(0, 5)  # Desactivar efecto de color
