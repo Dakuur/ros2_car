@@ -76,7 +76,7 @@ class ControlSubscriber(Node):
         if speed < 0:
             speed = 0.0
 
-        limited_speed = min(5, speed)  # Limitar a la velocidad máxima de 1.8 m/s
+        limited_speed = min(1.8, speed)  # Limitar a la velocidad máxima de 1.8 m/s
 
         if float(self.acc) == float(-3.6) and not self.emergency:  # Emergency stop
             self.robot.set_car_motion(0, 0, 0)

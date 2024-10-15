@@ -24,6 +24,9 @@ class JoystickPublisher(Node):
         # JS_ID = 0: ROSMASTER DEFAULT CONTROLLER
         # JS_ID = 1: STADIA CONTROLLER
 
+        self.prev_acc = None
+        self.prev_steering = None
+
     def timer_callback(self):
         # Actualizar el estado del joystick
         self.joystick.update()
@@ -40,14 +43,20 @@ class JoystickPublisher(Node):
         acc = max(-1.0, min(1.0, acc))
         steering = max(-1.0, min(1.0, steering))
 
-        # Crear el mensaje AckermannControl
-        msg = AutoboxControl()
-        msg.acceleration = float(acc)
-        msg.wheelAngle = float(steering)
+        # Comparar con los valores anteriores y publicar solo si hay cambios
+        if acc != self.prev_acc or steering != self.prev_steering:
+            # Crear el mensaje AckermannControl
+            msg = AutoboxControl()
+            msg.acceleration = float(acc)
+            msg.wheelAngle = float(steering)
 
-        # Publicar el mensaje
-        self.publisher_.publish(msg)
-        self.get_logger().info(f'Publishing Ackermann: Acceleration={msg.acceleration}, Steering={msg.wheelAngle}')
+            # Publicar el mensaje
+            self.publisher_.publish(msg)
+            self.get_logger().info(f'Publishing Ackermann: Acceleration={msg.acceleration}, Steering={msg.wheelAngle}')
+
+            # Actualizar los valores anteriores
+            self.prev_acc = acc
+            self.prev_steering = steering
 
 def main(args=None):
     rclpy.init(args=args)
