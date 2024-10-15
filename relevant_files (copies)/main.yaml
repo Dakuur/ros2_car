@@ -1,0 +1,42 @@
+launch:
+
+# camera input
+- node:
+    pkg: "cam_cap"
+    exec: "3cams"
+    param:
+    -
+        name: "fps"
+        value: 30.0
+    -
+        name: "ds"
+        value: 1.0 # def downscale: 1
+
+# real car parameters input
+- node:
+    pkg: "odo"
+    exec: "ego_pub"
+    param:
+    -
+        name: "hz"
+        value: 60.0
+
+# joystick input
+- node:
+    pkg: "joy_cap"
+    exec: "joy_pub"
+    param:
+    -
+        name: "hz"
+        value: 60.0
+    param:
+    -
+        name: "js_id" # Joystick
+        value: 1
+
+# control
+- node:
+    pkg: "car_control"
+    exec: "car_control"
+
+# colcon build --packages-select odo joy_cap cam_cap car_control --symlink-install
