@@ -53,9 +53,7 @@ class ControlSubscriber(Node):
     def listener_callback(self, msg):
         # Actualizar la aceleración y el ángulo de dirección recibidos
         self.acc = msg.acceleration * 3.6  # Convertir a m/s^2
-        self.acc *= 1 # escalado
-        self.steering = msg.wheelAngle
-        self.steering *= 1 # escalado
+        self.steering = -msg.wheelAngle
 
         self.get_logger().info(f"Received command: Acceleration={msg.acceleration:.3f}, Steering={self.steering:.3f}")
 
@@ -63,22 +61,7 @@ class ControlSubscriber(Node):
         # Guardar el valor recibido de adre_egomaster en self.speed
         self.speed = msg.velX.measurement
         self.yaw = msg.yaw.measurement
-
-    def steering_to_degrees(self, value):
-        degrees = 45 + (value + 1) * (135 - 45) / 2
-        return degrees
     
-    def correct_yaw(self, threshold=0.01):
-        # Corregir la dirección si el steering es 0
-        if self.steering == 0.0:
-            if self.yaw > threshold:  # Ajustar el umbral según sea necesario
-                self.steering = -0.1  # Ajustar el valor según sea necesario
-            elif self.yaw < -threshold:
-                self.steering = 0.1  # Ajustar el valor según sea necesario
-            else:
-                self.steering = 0.0
-            self.robot.set_pwm_servo(servo_id=1, angle=90)  # ángulo recto ruedas si joystick neutro
-
     def update_speed(self):
         # Calcular el tiempo transcurrido desde la última actualización
         current_time = time()
@@ -93,7 +76,7 @@ class ControlSubscriber(Node):
         if speed < 0:
             speed = 0.0
 
-        limited_speed = min(1.8, speed)  # Limitar a la velocidad máxima de 1.8 m/s
+        limited_speed = min(5, speed)  # Limitar a la velocidad máxima de 1.8 m/s
 
         if float(self.acc) == float(-3.6) and not self.emergency:  # Emergency stop
             self.robot.set_car_motion(0, 0, 0)
@@ -103,10 +86,11 @@ class ControlSubscriber(Node):
             sleep(3)
             self.end_emergency()  # Llamar a end_emergency después de la pausa
 
-        #self.correct_yaw()
-
         # Enviar los comandos de velocidad al robot
         self.robot.set_car_motion(limited_speed, self.steering * 0.045, 0)
+
+        if self.steering == float(0):
+            self.robot.set_pwm_servo(servo_id=1, angle=90)
 
         """self.robot.set_car_run(state=1, speed=limited_speed*(100/1.8), adjust=True)
         angle = self.steering_to_degrees(self.steering)

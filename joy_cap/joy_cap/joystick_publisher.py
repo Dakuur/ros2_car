@@ -32,7 +32,7 @@ class JoystickPublisher(Node):
         acc = self.joystick.get_value(param="RK1_UP_DOWN")
         if acc is None:
             acc = 0.0
-        steering = self.joystick.get_value(param="RK2_LEFT_RIGHT")
+        steering = -self.joystick.get_value(param="RK2_LEFT_RIGHT") # negativo
         if steering is None:
             steering = 0.0
         
