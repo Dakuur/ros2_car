@@ -27,14 +27,13 @@ class ControlSubscriber(Node):
             1)
         self.egomaster_subscription  # prevent unused variable warning
 
+        self.declare_parameter('max_speed', 1.8)  # Declarar el parámetro js_id con valor predeterminado 1.8
+        self.max_speed = self.get_parameter('max_speed').get_parameter_value().double_value
+
         # Inicializar el robot
         self.robot = Rosmaster(debug=False)
         #self.robot.create_receive_threading()
-        self.robot.set_colorful_effect(0, 5) 
-
-        """self.robot.set_pwm_servo(servo_id=1, angle=45)
-        sleep(0.5)
-        self.robot.set_pwm_servo(servo_id=1, angle=90)"""
+        self.robot.set_colorful_effect(0, 5)
 
         self.speed = 0  # Velocidad actual real en m/s
         self.yaw = 0 # Yaw actual real en radianes
@@ -75,7 +74,7 @@ class ControlSubscriber(Node):
         if speed < 0:
             speed = 0.0
 
-        limited_speed = min(1.8, speed)  # Limitar a la velocidad máxima de 1.8 m/s
+        limited_speed = min(self.max_speed, speed)  # Limitar a la velocidad máxima de 1.8 m/s
 
         if float(self.acc) == float(-3.6) and not self.emergency:  # Emergency stop
             self.robot.set_car_motion(0, 0, 0)

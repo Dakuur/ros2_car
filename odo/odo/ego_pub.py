@@ -49,8 +49,8 @@ class SpeedPublisher(Node):
         self.max_yaw = max(angle, abs(self.max_yaw))
         self.publisher_.publish(msg)
         self.get_logger().info(f'Publishing Ego: speed={msg.speed} m/s, yaw={msg.steering} rad')
-        self.get_logger().info(f"Max speed: {self.max_speed} m/s")
-        self.get_logger().info(f"Max yaw: {self.max_yaw} rad")
+        #self.get_logger().info(f"Max speed: {self.max_speed} m/s")
+        #self.get_logger().info(f"Max yaw: {self.max_yaw} rad")
 
 def main(args=None):
     rclpy.init(args=args)

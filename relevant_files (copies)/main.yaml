@@ -38,5 +38,9 @@ launch:
 - node:
     pkg: "car_control"
     exec: "car_control"
+    param:
+    -
+        name: "max_speed"
+        value: 1.8
 
 # colcon build --packages-select odo joy_cap cam_cap car_control --symlink-install
