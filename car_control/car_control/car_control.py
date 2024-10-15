@@ -1,8 +1,7 @@
 from Rosmaster_Lib import Rosmaster
 import rclpy
 from rclpy.node import Node
-from communication_interfaces.msg import AutoboxControl
-from communication_interfaces.msg import Ego
+from custom.msg import AckermannControl, Odometry
 import math
 from time import time, sleep
 import signal
@@ -14,7 +13,7 @@ class ControlSubscriber(Node):
 
         # OUTPUT (JOYSTICK OR AI)
         self.subscription = self.create_subscription(
-            AutoboxControl,
+            AckermannControl,
             'control',
             self.listener_callback,
             1)
@@ -22,7 +21,7 @@ class ControlSubscriber(Node):
 
         # ODOMETRY
         self.egomaster_subscription = self.create_subscription(
-            Ego,
+            Odometry,
             'odo',
             self.egomaster_callback,
             1)
@@ -52,15 +51,15 @@ class ControlSubscriber(Node):
 
     def listener_callback(self, msg):
         # Actualizar la aceleración y el ángulo de dirección recibidos
-        self.acc = msg.acceleration * 3.6  # Convertir a m/s^2
-        self.steering = -msg.wheelAngle
+        self.acc = msg.acc * 3.6  # Convertir a m/s^2
+        self.steering = -msg.steering
 
-        self.get_logger().info(f"Received command: Acceleration={msg.acceleration:.3f}, Steering={self.steering:.3f}")
+        self.get_logger().info(f"Received command: Acceleration={msg.acc:.3f}, Steering={self.steering:.3f}")
 
     def egomaster_callback(self, msg):
         # Guardar el valor recibido de adre_egomaster en self.speed
-        self.speed = msg.velX.measurement
-        self.yaw = msg.yaw.measurement
+        self.speed = msg.speed
+        self.yaw = msg.steering
     
     def update_speed(self):
         # Calcular el tiempo transcurrido desde la última actualización

@@ -3,13 +3,13 @@ import time
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Header
-from communication_interfaces.msg import AutoboxControl
+from custom.msg import AckermannControl
 
 class JoystickPublisher(Node):
 
     def __init__(self):
         super().__init__('joystick_publisher')
-        self.publisher_ = self.create_publisher(AutoboxControl, 'control', 1)
+        self.publisher_ = self.create_publisher(AckermannControl, 'control', 1)
 
         self.declare_parameter('hz', 60.0)
         self.declare_parameter('js_id', 1)  # Declarar el parámetro js_id con valor predeterminado 1
@@ -46,13 +46,13 @@ class JoystickPublisher(Node):
         # Comparar con los valores anteriores y publicar solo si hay cambios
         if acc != self.prev_acc or steering != self.prev_steering:
             # Crear el mensaje AckermannControl
-            msg = AutoboxControl()
-            msg.acceleration = float(acc)
-            msg.wheelAngle = float(steering)
+            msg = AckermannControl()
+            msg.acc = float(acc)
+            msg.steering = float(steering)
 
             # Publicar el mensaje
             self.publisher_.publish(msg)
-            self.get_logger().info(f'Publishing Ackermann: Acceleration={msg.acceleration}, Steering={msg.wheelAngle}')
+            self.get_logger().info(f'Publishing Ackermann: Acceleration={msg.acc}, Steering={msg.steering}')
 
             # Actualizar los valores anteriores
             self.prev_acc = acc

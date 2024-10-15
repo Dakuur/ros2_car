@@ -28,7 +28,7 @@ find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
-  "msg/AckermannControl.msg",
+  "msg/AckermannControl.msg"
   "msg/Odometry.msg"
   DEPENDENCIES sensor_msgs
   DEPENDENCIES std_msgs
