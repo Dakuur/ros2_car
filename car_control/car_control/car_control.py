@@ -98,7 +98,7 @@ class ControlSubscriber(Node):
         #self.get_logger().info(f"Max speed: {self.max_speed:.3f} m/s, max steer: {self.max_steer:.3f}")
 
     def end_emergency(self):
-        self.robot.set_colorful_effect(0, 5)  # Desactivar efecto de color
+        self.robot.set_colorful_effect(0, 5)  # Desactivar efecto de color 
         self.emergency = False
 
     def stop_car(self):
