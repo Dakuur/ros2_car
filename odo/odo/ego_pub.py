@@ -9,7 +9,7 @@ import math
 class SpeedPublisher(Node):
 
     def __init__(self):
-        super().__init__('odo_publisher')
+        super().__init__('odo_publisher') 
         self.publisher_ = self.create_publisher(Odometry, 'odo', 1)
 
         self.declare_parameter('hz', 30.0)
