@@ -58,7 +58,7 @@ def main(args=None):
     speed_publisher = SpeedPublisher()
 
     rclpy.spin(speed_publisher)
-    #speed_publisher.get_logger().info(f"Max speed: {speed_publisher.max_speed}")
+    # speed_publisher.get_logger().info(f"Max speed: {speed_publisher.max_speed}")
     speed_publisher.destroy_node()
     rclpy.shutdown()
 
