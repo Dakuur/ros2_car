@@ -35,7 +35,6 @@ class ControlSubscriber(Node):
 
         self.robot = Rosmaster(debug=True)
         self.robot.set_colorful_effect(0, 5)
-        print("Setting offset")
         self.robot.set_akm_default_angle(angle=90, forever=True)
 
         self.speed = 0

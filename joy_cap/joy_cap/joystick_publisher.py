@@ -29,6 +29,7 @@ class JoystickPublisher(Node):
     def timer_callback(self):
         self.joystick.update()
         acc = self.joystick.get_value(param="RK1_UP_DOWN")
+        
         if acc is None:
             acc = 0.0
         steering = -self.joystick.get_value(param="RK2_LEFT_RIGHT")

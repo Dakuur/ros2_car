@@ -49,6 +49,7 @@ class SpeedPublisher(Node):
             self.get_logger().info(f'Publishing Ego: speed={msg.speed} m/s, yaw={msg.steering} rad')
 
 def main(args=None):
+    
     rclpy.init(args=args)
     speed_publisher = SpeedPublisher()
     rclpy.spin(speed_publisher)

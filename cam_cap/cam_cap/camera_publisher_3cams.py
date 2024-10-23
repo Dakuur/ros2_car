@@ -22,6 +22,7 @@ class CameraPublisher(Node):
         self.bridge = CvBridge()
 
     def timer_callback(self):
+        
         ret, frame = self.cap.read()
         if ret:
             downscale = self.get_parameter('ds').get_parameter_value().double_value
