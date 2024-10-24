@@ -35,7 +35,7 @@ class ControlSubscriber(Node):
 
         self.robot = Rosmaster(debug=True)
         self.robot.set_colorful_effect(0, 5)
-        self.robot.set_akm_default_angle(angle=90, forever=True)
+        #self.robot.set_akm_default_angle(angle=90, forever=True)
 
         self.speed = 0
         self.yaw = 0
@@ -45,7 +45,7 @@ class ControlSubscriber(Node):
         self.emergency = False
 
         hz = 30.0
-        self.timer = self.create_timer(1.0 / hz, self.update_speed)
+        self.timer = self.create_timer(1.0 / hz, self.update_motion)
 
     def listener_callback(self, msg):
         self.acc = msg.acc * 3.6
@@ -57,8 +57,18 @@ class ControlSubscriber(Node):
     def egomaster_callback(self, msg):
         self.speed = msg.speed
         self.yaw = msg.steering
+
+    def correct_servo_position(self):
+        if self.steering == float(0):
+            if self.yaw != float(0):
+                corr = 5
+                correction_angle = 90 + corr if self.yaw > 0 else 90 - corr
+                self.robot.set_pwm_servo(servo_id=1, angle=correction_angle)
+                self.yaw = 0  # Reset yaw to 0 after correction
+            else:
+                self.robot.set_pwm_servo(servo_id=1, angle=90)
     
-    def update_speed(self):
+    def update_motion(self):
         current_time = time()
         time_diff = current_time - self.previous_time
         self.previous_time = current_time
@@ -82,8 +92,7 @@ class ControlSubscriber(Node):
         self.robot.set_car_motion(limited_speed, limited_steer * 0.045, 0)
         #self.robot.set_car_run(state=1, speed=limited_speed*100, adjust=True)
 
-        if self.steering == float(0):
-            self.robot.set_pwm_servo(servo_id=1, angle=90)
+        self.correct_servo_position()
 
         if self.print_info:
             self.get_logger().info(f"Car speed set to {limited_speed:.3f} m/s.")
